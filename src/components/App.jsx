@@ -50,6 +50,22 @@ export class App extends Component {
       contacts: contacts.filter(contact => contact.id !== id),
     }));
 
+  addContactToLocalStore = () => {
+    localStorage.setItem('phoneContacts', JSON.stringify(this.state.contacts));
+  };
+
+  componentDidMount() {
+    let getContacts = localStorage.getItem('phoneContacts');
+
+    getContacts
+      ? this.setState({ contacts: JSON.parse(getContacts) })
+      : this.addContactToLocalStore();
+  }
+
+  componentDidUpdate() {
+    this.addContactToLocalStore();
+  }
+
   render() {
     const { filter } = this.state;
     return (
