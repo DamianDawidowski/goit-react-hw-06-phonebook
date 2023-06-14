@@ -1,25 +1,12 @@
-import { Component, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-
-// export class App extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     contacts: [
-  //       { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-  //       { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-  //       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-  //       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-  //     ],
-  //     filter: '',
-  //   };
-  // }
-
+  
   export const App = () => {
 
-    const [contacts, changeContact] = useState([
+    const [contacts, changeContact] = useState(
+      JSON.parse(window.localStorage.getItem("phoneContacts")) ?? [
             { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
              { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
             { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
@@ -27,13 +14,8 @@ import { Filter } from './Filter/Filter';
             ],);
   
 
-    const [filter, executeFilter] = useState("");
-
-
-    // useEffect(() => {
-    //   // Do stuff when value prop changes
-    // }, [value]);
-
+    const [filter, setFilter] = useState("");
+  
  const newContact = (ev => {
     const loweredcaseName = ev.name.toLowerCase().trim();
 
@@ -49,48 +31,39 @@ import { Filter } from './Filter/Filter';
           ...ev
         }));
     }})
+ 
+    const filterName = (e) => {
+      e.preventDefault();
+      setFilter(e.target.value);
+      console.log("filter is " +e.target.value)
+    };
+ 
 
-    // newContact (ev => ({  
-    //        ...contacts,
-    //         ...ev
-    //       }));
-       
-   executeFilter = (ev) => (
-      ev.target.value );
-  
+  useEffect(() => {
+      contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()))
+ }, [filter]);
 
-  const foundContacts = () => { 
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase())
-    );
-  };
+ useEffect(() => {
+  addContactToLocalStore();
+}, [contacts]);
 
-  const removeContact = id => {
-  changeContact(contacts.filter(({contact}) => contact.id !== id))
+
+  const removeContact = idToDelete => {
+  changeContact(contacts.filter(({id}) =>  id !== idToDelete))
   }
   const addContactToLocalStore = () => {
     localStorage.setItem('phoneContacts', JSON.stringify(contacts));
   };
-
-    // componentDidMount() {
-    //   let getContacts = localStorage.getItem('phoneContacts');
-
-    //  getContacts
-    //    ? this.setState({ contacts: JSON.parse(getContacts) })
-    //     : this.addContactToLocalStore();
-    // }
-
-  useEffect(() => {
-       addContactToLocalStore();
-    }, [contacts]);
- 
+  
     return (
       <div> 
         {  <ContactForm newContact={ newContact} />  }
 
-        { <Filter filter={filter} executeFilter={ executeFilter} />  }
+        { <Filter filter={filter} filterName={ filterName} />  }
         <ContactList
-          contacts={foundContacts()}
+      
+          contacts={contacts}
           removeContact={ removeContact}
         />
       </div>
