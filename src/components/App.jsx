@@ -1,5 +1,4 @@
-// import { useEffect, useState } from 'react';
-import {  useState } from 'react';
+ import { useEffect, useState } from 'react'; 
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
@@ -39,22 +38,22 @@ import { Filter } from './Filter/Filter';
     };
  
 
-//   useEffect(() => {
-//       contacts.filter(contact =>
-//       contact.name.toLowerCase().includes(filter.toLowerCase()))
-//  }, [filter]);
+  useEffect(() => {
+      contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase()))
+ }, [filter]);
 
-//  useEffect(() => {
-//   addContactToLocalStore();
-// }, [contacts]);
+ useEffect(() => {
+  addContactToLocalStore();
+}, [contacts]);
 
 
   const removeContact = idToDelete => {
   changeContact(contacts.filter(({id}) =>  id !== idToDelete))
   }
-  // const addContactToLocalStore = () => {
-  //   localStorage.setItem('phoneContacts', JSON.stringify(contacts));
-  // };
+  const addContactToLocalStore = () => {
+    localStorage.setItem('phoneContacts', JSON.stringify(contacts));
+  };
   
     return (
       <div> 
