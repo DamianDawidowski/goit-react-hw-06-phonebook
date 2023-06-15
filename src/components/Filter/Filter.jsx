@@ -12,8 +12,7 @@ export class Filter extends Component {
         <input
           type="text"
           name="filter"
-          className={css.filterInput}
-        
+          className={css.filterInput} 
           onChange={filterName}
         />
       </div>

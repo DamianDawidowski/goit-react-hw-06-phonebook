@@ -34,8 +34,7 @@ import { Filter } from './Filter/Filter';
  
     const filterName = (e) => {
       e.preventDefault();
-      setFilter(e.target.value);
-      console.log("filter is " +e.target.value)
+      setFilter(e.target.value); 
     };
  
 
@@ -58,11 +57,9 @@ import { Filter } from './Filter/Filter';
   
     return (
       <div> 
-        {  <ContactForm newContact={ newContact} />  }
-
+        {  <ContactForm newContact={ newContact} />  } 
         { <Filter filter={filter} filterName={ filterName} />  }
-        <ContactList
-      
+        <ContactList 
           contacts={contacts}
           removeContact={ removeContact}
         />
