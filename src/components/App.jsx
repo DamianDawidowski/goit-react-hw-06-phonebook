@@ -38,14 +38,14 @@ import { Filter } from './Filter/Filter';
     };
  
 
-  useEffect(() => {
-      contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()))
- }, [filter]);
+//   useEffect(() => {
+//       contacts.filter(contact =>
+//       contact.name.toLowerCase().includes(filter.toLowerCase()))
+//  }, [filter]);
 
- useEffect(() => {
-  addContactToLocalStore();
-}, [contacts]);
+//  useEffect(() => {
+//   addContactToLocalStore();
+// }, [contacts]);
 
 
   const removeContact = idToDelete => {
