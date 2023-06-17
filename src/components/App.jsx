@@ -23,44 +23,43 @@ import { Filter } from './Filter/Filter';
       contact => contact.name.toLowerCase().trim() === loweredcaseName
     );
 
-    if (ifExists) {
+    if (ifExists) { 
       alert(`${ev.name} is already in contacts!`);
-    } else {
-      changeContact(contacts  => ({ 
-         ...contacts,
-          ...ev
-        }));
+    } else { 
+      changeContact([...contacts, ev]);;
     }})
  
-    const filterName = (e) => {
-      e.preventDefault();
-      setFilter(e.target.value); 
+   const executeFilter = ev => {
+      setFilter(ev.currentTarget.value);
     };
- 
-
-  useEffect(() => {
-      contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filter.toLowerCase()))
- }, [filter]);
 
  useEffect(() => {
+  const addContactToLocalStore = () => {
+    localStorage.setItem('phoneContacts', JSON.stringify(contacts));
+  };
   addContactToLocalStore();
 }, [contacts]);
+
+const foundContacts = () => {
+  
+  return contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+};
+
 
 
   const removeContact = idToDelete => {
   changeContact(contacts.filter(({id}) =>  id !== idToDelete))
   }
-  const addContactToLocalStore = () => {
-    localStorage.setItem('phoneContacts', JSON.stringify(contacts));
-  };
+
   
     return (
       <div> 
         {  <ContactForm newContact={ newContact} />  } 
-        { <Filter filter={filter} filterName={ filterName} />  }
+        <Filter filter={filter} executeFilter={executeFilter} />
         <ContactList 
-          contacts={contacts}
+          contacts={foundContacts()}
           removeContact={ removeContact}
         />
       </div>

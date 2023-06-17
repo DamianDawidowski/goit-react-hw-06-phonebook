@@ -4,7 +4,7 @@ import css from './Filter.module.css';
 
 export class Filter extends Component {
   render() {
-    const {   filterName } = this.props;
+    const { filter, executeFilter } = this.props;
     return (
       <div className={css.filter}>
         <h2>Contacts</h2>
@@ -12,8 +12,9 @@ export class Filter extends Component {
         <input
           type="text"
           name="filter"
-          className={css.filterInput} 
-          onChange={filterName}
+          className={css.filterInput}
+          value={filter}
+          onChange={executeFilter}
         />
       </div>
     );
