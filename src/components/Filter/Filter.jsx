@@ -1,10 +1,18 @@
-import PropTypes from 'prop-types';
-import { Component } from 'react';
+import PropTypes from 'prop-types'; 
 import css from './Filter.module.css';
+import { useDispatch } from 'react-redux';
+import {setFilter } from 'redux/actions';
 
-export class Filter extends Component {
-  render() {
-    const { filter, executeFilter } = this.props;
+export const Filter = () => {
+ 
+    const dispatch = useDispatch();
+  
+    const onChange = ev => {
+      const filter = ev.target.value.toLowerCase();
+      dispatch(setFilter(filter));
+    };
+  
+
     return (
       <div className={css.filter}>
         <h2>Contacts</h2>
@@ -12,14 +20,13 @@ export class Filter extends Component {
         <input
           type="text"
           name="filter"
-          className={css.filterInput}
-          value={filter}
-          onChange={executeFilter}
+          className={css.filterInput} 
+          onChange={onChange}
         />
       </div>
     );
   }
-}
+ 
 
 Filter.propTypes = {
   filter: PropTypes.string.isRequired,

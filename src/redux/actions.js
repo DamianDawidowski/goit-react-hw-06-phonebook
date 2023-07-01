@@ -4,4 +4,4 @@ export const addNewContact = createAction('contact/addNewContact');
 
 export const deleteContact = createAction('contact/deleteContact');
 
-export const filterContacts = createAction('filter/setFilter');
+export const setFilter = createAction('filter/setFilter');

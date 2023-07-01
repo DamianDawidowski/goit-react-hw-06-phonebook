@@ -33,9 +33,7 @@ export const ContactForm = () => {
       });
 
       if (nameAlreadyOnList) return;
-
-
-
+ 
       dispatch(addNewContact(newContact));
 
       form.reset();
@@ -69,12 +67,10 @@ export const ContactForm = () => {
         </div>
       </form>
     );
-  }
- 
+  } 
 
 ContactForm.propTypes = {
   number: PropTypes.string,
   name: PropTypes.string,
   newContact: PropTypes.func.isRequired,
-};
-export default ContactForm;
+}; 

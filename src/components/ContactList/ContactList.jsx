@@ -19,11 +19,7 @@ export const ContactList = () => {
   const removeContact = id => {
     dispatch(deleteContact(id));
   };
-
-
-
-
-
+ 
   return (
     <div className={css.contacts}>
       <ul className={css.contactsList}>
