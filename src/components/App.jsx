@@ -1,4 +1,4 @@
- import { useEffect, useState } from 'react'; 
+import { useEffect, useState } from 'react'; 
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
@@ -46,17 +46,14 @@ const foundContacts = () => {
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );
 };
-
-
-
+ 
   const removeContact = idToDelete => {
   changeContact(contacts.filter(({id}) =>  id !== idToDelete))
-  }
+  } 
 
-  
     return (
       <div> 
-        {  <ContactForm newContact={ newContact} />  } 
+        {<ContactForm newContact={ newContact} />  } 
         <Filter filter={filter} executeFilter={executeFilter} />
         <ContactList 
           contacts={foundContacts()}

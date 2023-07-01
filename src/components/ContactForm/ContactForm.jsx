@@ -1,21 +1,48 @@
-import { Component } from 'react';
 import css from './ContactForm.module.css';
 import { nanoid } from 'nanoid';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addNewContact } from 'redux/actions';
+import { getContacts } from 'redux/selectors';
 
-export class ContactForm extends Component {
-  handleFormSubmit = event => {
+export const ContactForm = () => {
+
+  const contacts = useSelector(getContacts);
+  const dispatch = useDispatch();
+
+
+ const handleFormSubmit = event => {
     event.preventDefault();
-    const { newContact } = this.props;
+    let nameAlreadyOnList = false;
+    const form = event.target;
+ 
     const number = event.target.number.value;
     const name = event.target.name.value;
-    newContact({ id: nanoid(), name, number });
-    event.target.reset();
-  };
+    const toLowerCase = name.toLowerCase();
+    const newContact = ({ 
+      id: nanoid(), 
+      name:name, 
+      number: number });
 
-  render() {
+      contacts.forEach(({ name }) => {
+        if (name.toLowerCase() === toLowerCase) {
+          alert(`${name} is currently in contacts`);
+          nameAlreadyOnList = true;
+          form.reset();
+        }
+      });
+
+      if (nameAlreadyOnList) return;
+
+
+
+      dispatch(addNewContact(newContact));
+
+      form.reset();
+  };
+ 
     return (
-      <form className={css.form} onSubmit={this.handleFormSubmit}>
+      <form className={css.form} onSubmit={handleFormSubmit}>
         <h1>Phonebook</h1>
         <div className={css.container}>
           <label className={css.formLabel}>Name</label>
@@ -43,7 +70,7 @@ export class ContactForm extends Component {
       </form>
     );
   }
-}
+ 
 
 ContactForm.propTypes = {
   number: PropTypes.string,
