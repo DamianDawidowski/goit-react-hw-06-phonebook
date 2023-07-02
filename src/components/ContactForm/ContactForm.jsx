@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { addNewContact } from 'redux/contactsSlice';
  
-import { getContacts } from 'redux/selectors';
+import {selectContacts } from 'redux/selectors';
 
 export const ContactForm = () => {
 
-  const contacts = useSelector(getContacts);
+  const contacts = useSelector(selectContacts);
   const dispatch = useDispatch();
 
 
